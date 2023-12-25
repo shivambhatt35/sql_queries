@@ -1,0 +1,12 @@
+with base as (
+select a.visit_id, a.customer_id, b.transaction_id
+from Visits a 
+left join Transactions b 
+on a.visit_id = b.visit_id
+where b.transaction_id is null
+)
+
+select customer_id , count(distinct visit_id) as count_no_trans
+from base
+group by 1
+order by 1 desc, 2 desc
