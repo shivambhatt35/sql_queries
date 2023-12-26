@@ -1,0 +1,14 @@
+# Write your MySQL query statement below
+
+with base as (
+
+select managerId, count(managerId) as cnt
+from Employee
+group by 1 
+having cnt >= 5
+
+)
+
+select  b.name
+from base a 
+inner join Employee b  on a.managerId = b.id
