@@ -1,0 +1,25 @@
+# Write your MySQL query statement below
+
+with total as (
+
+    select count(distinct user_id) as total
+    from Users
+),
+
+base as (
+
+    select contest_id, count(distinct user_id) as base_count 
+    from Register 
+    group by 1
+),
+
+cross_join as (
+
+    select contest_id,base_count,total
+    from base
+    cross join total
+)
+
+select contest_id, round(base_count / total * 100.00,2) as percentage 
+from cross_join 
+order by 2 desc , 1 asc
