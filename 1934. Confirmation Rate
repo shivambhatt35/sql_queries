@@ -1,0 +1,21 @@
+# Write your MySQL query statement below
+
+with base as (
+select a.user_id, 
+case when b.action = 'timeout' then 1 else 0 end as timeout,
+case when b.action = 'confirmed' then 1 else 0 end as confirmed
+from Signups a
+left join Confirmations b on a.user_id = b.user_id
+),
+
+pre as (
+select user_id,sum(timeout) as timeout, sum(confirmed) as confirmed
+from base 
+group by 1 
+)
+
+select user_id,
+ case 
+  when confirmed + timeout = 0 then 0
+  else round(confirmed / (confirmed + timeout) , 2) end as confirmation_rate 
+from pre
