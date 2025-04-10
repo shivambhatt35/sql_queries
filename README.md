@@ -1,1 +1,1 @@
-List of all SQL Queries practiced and used during projeects
+A collection of SQL queries used for data exploration, reporting, data cleaning, and performance analysis across various projects. Includes use cases for joins, aggregations, CTEs, window functions, and optimization techniques.
